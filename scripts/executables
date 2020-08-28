@@ -1,0 +1,6 @@
+for f in $(find . -type f | perl -lne 'print if -B'); do
+    insp=$(file $f)
+    if [[ $insp == *" executable x86_64"* ]]; then
+        echo $f
+    fi
+done
