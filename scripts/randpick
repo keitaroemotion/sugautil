@@ -1,0 +1,15 @@
+#!/usr/bin/env python3
+
+#
+# input: xs 
+# 1. get len(xs) = N
+# 2. get random number from 0..N-1 = v
+# 3. show xs[v]
+
+import random
+import sys
+
+xs = sys.argv[1:]
+n  = random.randint(0, len(xs)-1)
+
+print(xs[n])

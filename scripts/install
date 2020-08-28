@@ -1,0 +1,2 @@
+cd scripts
+cp binaries executables flat objects /usr/local/bin
