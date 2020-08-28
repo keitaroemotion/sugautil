@@ -10,6 +10,6 @@ import random
 import sys
 
 xs = sys.argv[1:]
-n  = random.randint(0, len(xs)-1)
-
-print(xs[n])
+if(len(xs) > 0):
+    n  = random.randint(0, len(xs)-1)
+    print(xs[n])
