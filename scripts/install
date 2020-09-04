@@ -3,3 +3,4 @@ cp binaries exs flat objects randpick ranexs ranobj /usr/local/bin
 cp h2d /usr/local/bin
 cp d2b /usr/local/bin
 cp b2d /usr/local/bin
+cp calc /usr/local/bin

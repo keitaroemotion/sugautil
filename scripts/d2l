@@ -1,0 +1,84 @@
+#!/usr/bin/env python3
+
+#
+# decimal to language (D2L)
+#
+
+#
+# d2l [operation(optional)] [number] 
+#
+
+import sys
+
+args = sys.argv
+
+def help():
+    print('\nd2l [operation(optional)] [number]\n')
+
+if(len(args) < 3):
+    help()
+    sys.exit()
+
+actions = ['j', 'e']
+action = args[1]
+number = args[2]
+
+if(action not in actions):
+    print('1st arg should be one of the below:\n')
+    print('j')
+    print('e')
+    sys.exit()
+
+def build_comma_separated_number(number, unit):
+    i = 0
+    s = []
+    nsp = list(number)
+    nsp.reverse()
+
+    for n in nsp:
+        s.append(n)
+        i = i+1
+        if(i == unit):
+            i = 0
+            s.append(',')
+    s.reverse() 
+    return s
+
+#
+# TODO: need to do something with this ugly duplication
+#
+jp_units    = ['京', '兆', '億', '万']
+jp_units_cp = ['京', '兆', '億', '万']
+
+def fitNumber(number, jp_units):
+    for x in jp_units:
+        for _ in range(0, 4):
+            number = number.replace(x+'0', x)
+
+    # TODO: nC2, stop the ugly below hardcode
+    _number = []
+    en = list(number)
+    for i, x in enumerate(en):
+        if(en[i] in jp_units and en[i-1] in jp_units):
+            pass
+        else:
+            _number.append(x)
+    
+    return ''.join(_number)
+
+if(action == 'j'):
+    csn = build_comma_separated_number(number, 4)
+    print("".join(csn))
+    s = [] 
+    csn.reverse()
+    for x in csn:
+        if(x == ','):
+            x = jp_units[len(jp_units) - 1] 
+            jp_units.pop()
+        s.append(x)
+    s.reverse() 
+    res = ''.join(s).replace('0000', '')
+    print(fitNumber(res, jp_units_cp))
+
+elif(action == 'e'):
+    pass
