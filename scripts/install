@@ -4,3 +4,6 @@ cp h2d /usr/local/bin
 cp d2b /usr/local/bin
 cp b2d /usr/local/bin
 cp calc /usr/local/bin
+cp c2nl /usr/local/bin
+cp cline /usr/local/bin
+cp line /usr/local/bin

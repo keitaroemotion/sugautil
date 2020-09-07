@@ -68,7 +68,7 @@ def fitNumber(number, jp_units):
 
 if(action == 'j'):
     csn = build_comma_separated_number(number, 4)
-    print("".join(csn))
+    comma_separated_number = "".join(csn) + ' | '
     s = [] 
     csn.reverse()
     for x in csn:
@@ -78,7 +78,7 @@ if(action == 'j'):
         s.append(x)
     s.reverse() 
     res = ''.join(s).replace('0000', '')
-    print(fitNumber(res, jp_units_cp))
+    print(comma_separated_number + fitNumber(res, jp_units_cp))
 
 elif(action == 'e'):
     pass
