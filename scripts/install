@@ -7,3 +7,4 @@ cp calc /usr/local/bin
 cp c2nl /usr/local/bin
 cp cline /usr/local/bin
 cp line /usr/local/bin
+cp cvert /usr/local/bin

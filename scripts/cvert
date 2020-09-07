@@ -1,0 +1,7 @@
+colnum=1
+
+if [ ! -z $2 ]; then
+    colnum=$2
+fi
+
+cat $1 | awk '{split($0,a,","); print a['$colnum']}'
