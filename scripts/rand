@@ -1,0 +1,12 @@
+dir=$1
+
+if [ -z $dir ]; then
+    dir=.
+fi
+
+files=( $(ls $dir) )
+len=${#files[@]}
+i=$(jot -r 1 0 $len)
+
+echo ${files[$i]}
+
