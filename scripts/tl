@@ -1,0 +1,7 @@
+level=$1
+
+if [ -z $level ];then
+    level=1
+fi
+
+tree -L $level | less
