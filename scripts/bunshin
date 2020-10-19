@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+help() {
+    printf "\nbunshin [template] [number]\n\n"
+    exit
+}
+
+template=$1
+number=$2
+
+if [[ -z $template || -z $number ]]; then
+    help
+fi
+
+for i in $(seq 1 $number); do
+    echo $template | sed "s/{}/$i/g"
+done
