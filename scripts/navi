@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+
+action=$1
+
+if [[ "$action" != "-n" && "$action" != "-p" ]]; then
+    printf "\naction missing (-n|-p)\n\n"
+    exit
+fi
+
+current_path=$2
+if [ -z $current_path ]; then
+    current_dir=$(pwd)
+else
+    current_dir="$(pwd)/$(dirname $current_path)"
+fi
+
+i=0
+pointer=-1
+list=$(ls -lt -r $current_dir | awk '{print $9}')
+for x in $list;do
+    # echo "$i $current_dir/$x"
+    base_cp=$(basename $current_path)
+    base_x=$(basename $x)
+    if [[ $base_cp == $base_x ]];then
+        pointer=$i
+    fi
+    i=$((i+1))
+done
+
+i=0
+for x in $list;do
+    if [[ $i == $((pointer+1)) && $action == "-n" ]];then
+        echo $current_dir/$x
+    fi
+    if [[ $i == $((pointer-1)) && $action == "-p" ]];then
+        echo $current_dir/$x
+    fi
+    i=$((i+1))
+done
