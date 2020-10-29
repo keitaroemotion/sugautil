@@ -7,7 +7,7 @@ if [[ "$action" != "-n" && "$action" != "-p" ]]; then
     exit
 fi
 
-current_path=$2
+current_path=$(basename $2)
 if [ -z $current_path ]; then
     current_dir=$(pwd)
 else
@@ -17,23 +17,31 @@ fi
 i=0
 pointer=-1
 list=$(ls -lt -r $current_dir | awk '{print $9}')
+current_dir=$(echo $current_dir | sed 's/\/\.//g')
 for x in $list;do
-    # echo "$i $current_dir/$x"
-    base_cp=$(basename $current_path)
-    base_x=$(basename $x)
-    if [[ $base_cp == $base_x ]];then
-        pointer=$i
+    if [[ -f $x ]]; then
+        # echo "$i $current_dir/$x"
+        base_cp=$(basename $current_path)
+        base_x=$(basename $x)
+        if [[ $base_cp == $base_x ]];then
+            pointer=$i
+        fi
+        i=$((i+1))
     fi
-    i=$((i+1))
 done
 
 i=0
 for x in $list;do
-    if [[ $i == $((pointer+1)) && $action == "-n" ]];then
-        echo $current_dir/$x
+    if [[ -f $x ]]; then
+        if [[ $x != $current_dir* ]]; then
+            x=$current_dir/$x
+        fi
+        if [[ $i == $((pointer+1)) && $action == "-n" ]];then
+            echo $x
+        fi
+        if [[ $i == $((pointer-1)) && $action == "-p" ]];then
+            echo $x
+        fi
+        i=$((i+1))
     fi
-    if [[ $i == $((pointer-1)) && $action == "-p" ]];then
-        echo $current_dir/$x
-    fi
-    i=$((i+1))
 done
