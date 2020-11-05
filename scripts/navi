@@ -11,7 +11,7 @@ current_path=$(basename $2)
 if [ -z $current_path ]; then
     current_dir=$(pwd)
 else
-    current_dir="$(pwd)/$(dirname $current_path)"
+    current_dir="$(pwd)/$(dirname $2)"
 fi
 
 i=0
@@ -20,7 +20,6 @@ list=$(ls -lt -r $current_dir | awk '{print $9}')
 current_dir=$(echo $current_dir | sed 's/\/\.//g')
 for x in $list;do
     if [[ -f $x ]]; then
-        # echo "$i $current_dir/$x"
         base_cp=$(basename $current_path)
         base_x=$(basename $x)
         if [[ $base_cp == $base_x ]];then
@@ -32,7 +31,7 @@ done
 
 i=0
 for x in $list;do
-    if [[ -f $x ]]; then
+    if [[ -f $x || -f $current_dir/$x ]]; then
         if [[ $x != $current_dir* ]]; then
             x=$current_dir/$x
         fi
