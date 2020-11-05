@@ -11,7 +11,11 @@ current_path=$(basename $2)
 if [ -z $current_path ]; then
     current_dir=$(pwd)
 else
-    current_dir="$(pwd)/$(dirname $2)"
+    dirname2=$(dirname $2)
+    if [[ $dirname2 != $pwd* ]]; then
+        dirname2="$(pwd)/$dirname2"
+    fi
+    current_dir=$dirname2
 fi
 
 i=0
@@ -31,15 +35,16 @@ done
 
 i=0
 for x in $list;do
-    if [[ -f $x || -f $current_dir/$x ]]; then
-        if [[ $x != $current_dir* ]]; then
-            x=$current_dir/$x
-        fi
+    file=$x 
+    if [[ -f $current_dir/$x ]]; then
+        file=$current_dir/$x
+    fi
+    if [[ -f $file ]]; then
         if [[ $i == $((pointer+1)) && $action == "-n" ]];then
-            echo $x
+            echo $file
         fi
         if [[ $i == $((pointer-1)) && $action == "-p" ]];then
-            echo $x
+            echo $file
         fi
         i=$((i+1))
     fi
